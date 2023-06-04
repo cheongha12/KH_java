@@ -9,6 +9,7 @@ public class TestFileIO {
 	public void testFile() /*throws Exception*/{
 //		File f1= new File("D:/data1/aaa.txt");
 //		f1.mkdir();
+		//
 		String path = "D:/data2/test";
 		String filename = "aaa.txt";
 		
