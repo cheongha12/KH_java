@@ -34,13 +34,27 @@ public class StudentListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/student/list doGet() 진입" );
-		//
+		//1.전달받은 parameter  읽어내기
+		String searchWord= request.getParameter("searchWord");
+		
 		StudentDao dao = new StudentDao();
-		List<StudentVo> result = dao.selectListStudent();
+		List<StudentVo> result = null;
+		if(searchWord != null) {
+		//	System.out.println("[ejkim]:"+searchWord);
+			result = dao.selectListStudent(searchWord);
+		}else {
+			result = dao.selectListStudent();
+		}
+//		List<StudentVo> result = dao.selectListStudent();
+		//3. DB로부터 전달받은 데이터를 JSP에 전달함
 		request.setAttribute("studentList", result);
+		if(searchWord != null) {
+			request.setAttribute(searchWord, searchWord);
+		}
 		request.setAttribute("aaa", "그냥속성값테스트해봄");
 		request.setAttribute("bbb", "그냥속성값테스트해봄");
 		request.setAttribute("ccc", 333);
+		//4. JSP 파일 forward로 열기
 		request.getRequestDispatcher("/WEB-INF/view/student/list.jsp").forward(request, response);
 	}
 
