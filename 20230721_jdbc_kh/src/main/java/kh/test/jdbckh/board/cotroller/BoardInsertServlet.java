@@ -48,7 +48,7 @@ public class BoardInsertServlet extends HttpServlet {
 			
 			
 			
-			int result = service.insert(new BoardDto(btitle, bcontent, mid));
+//			int result = service.insert(new BoardDto(btitle, bcontent, mid));
 			
 			response.sendRedirect(request.getContextPath()+"/board/list");
 	}
