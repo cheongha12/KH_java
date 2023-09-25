@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Member">
+
+<!-- 
+1) VO 클래스와 Member 테이블 조회 결과를 매핑할 resultMap 작성 (id="memberResultSet")
+2) 로그인 기능을 수행하기 위한 select 엘리먼트 작성 (id="loginMember)
+//	CREATE TABLE MEMBER(
+//			MEMBER_ID VARCHAR2(30) PRIMARY KEY,
+//			MEMBER_PWD VARCHAR2(100) NOT NULL,
+//			MEMBER_NM VARCHAR2(15) NOT NULL,
+//			MEMBER_ENROLL_DT DATE DEFAULT SYSDATE
+//			);
+	private String memberId;
+		private String memberPwd;
+		private String memberName;
+		private Date memberEnrollDate;
+
+	 // (import : java.sql.Date)
+mybatis-config.xml
+mappers/member-mapper.xml
+ -->
+
+
+
+  <resultMap type="Member" id="memberResultSet">
+  <id column="MEMBER_ID" property="memberId"/>
+  <result column="MEMBER_PWD" property="memberPwd"/>
+  <result column="MEMBER_NM" property="memberName"/>
+  <result column="MEMBER_ENROLL_DT" property="memberEnrollDate"/>
+  </resultMap>
+  <select id="loginMember" resultMap="memberResultSet">
+  SELECT * FROM MEMBER WHERE MEMBER_ID=#{memberId} and MEMBER_PWD=#{memberPwd}
+  </select>
+  <select id="loginMember " resultMap="memberResultSet">
+  SELECT * FROM MEMBER
+  </select>
+  <insert id="insertMember" parameterType="Member">
+  INSERT INTO MEMBER VALUE(#{memberId}, #{memberPwd} , #{memberName})
+  </insert>
+  <update id="updateMember" parameterType="Member">
+  UPDATE MEMBER SET MEMBER_ID = #{memberId}
+  WHERE MEMBER_PWD=#{memberPwd},MEMBER_NM=#{memberName},memberEnrollDate= #{memberEnrollDate}
+  </update>
+  <delete id="deleteMember" parameterType="Member">
+  DELETE FROM MEMBER WHERE MEMBER_ID=#{memberId}
+  </delete>
+</mapper>
